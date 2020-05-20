@@ -6,7 +6,7 @@ class Ground:
     def __init__(self):
         self.position = (0, CONFIG["window_height"]-100)
         self.size = (CONFIG["window_width"], 200)
-        self.color = (80, 180, 80, 0)
+        self.color = (80, 180, 80)
 
     def draw(self, window: pygame.Surface):
         surface = pygame.Surface(self.size)

@@ -6,11 +6,13 @@ from config import CONFIG
 
 from Character import Character
 from Ground import Ground
+from Obstacle import Obstacle
 from Background import Background
 
 character = Character(input("Wybierz bohatera:"))
 background = Background()
 ground = Ground()
+obstacle = Obstacle()
 
 pygame.init()
 
@@ -44,12 +46,14 @@ while running:
 
     # === Physics ===
     character.update(deltaT)
+    obstacle.update()
 
     # === Graphics ===
     window.fill((0, 0, 0))
 
     background.draw(window)
     ground.draw(window)
+    obstacle.draw(window)
     character.draw(window)
 
     pygame.display.update()

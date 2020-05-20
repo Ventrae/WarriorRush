@@ -12,7 +12,7 @@ class Background:
         surface = pygame.Surface(self.size)
         surface.set_colorkey((0, 0, 0))
 
-        myimage = pygame.image.load("assets\\background\\Battleground3.png")
+        myimage = pygame.image.load("assets\\background\\background-1.png")
         image_resized = pygame.transform.rotozoom(myimage, 0, CONFIG["window_width"]/myimage.get_rect()[2])
         pygame.draw.rect(surface, self.color, ((0, 0), self.size))
         

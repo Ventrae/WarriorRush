@@ -18,10 +18,10 @@ class Character:
         acceleration_x, acceleration_y = self.acceleration
 
         self.velocity = (acceleration_x * deltaT + velocity_x, acceleration_y * deltaT + velocity_y)
-        self.position = [
+        self.position = (
             pos_x + velocity_x * deltaT + 0.5 * acceleration_x * deltaT ** 2,
             pos_y + velocity_y * deltaT + 0.5 * acceleration_y * deltaT ** 2,
-        ]
+        )
 
     def draw(self, window: pygame.Surface):
         surface = pygame.Surface(self.size)
@@ -44,6 +44,6 @@ class Character:
         window.blit(surface, self.position)
 
     def jump(self):
-        self.acceleration = (0, 900)
-        self.velocity = (0, -550)
+        self.acceleration = (0, 2000)
+        self.velocity = (0, -750)
         self.isInMidair = True
