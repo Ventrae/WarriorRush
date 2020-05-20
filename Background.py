@@ -11,10 +11,14 @@ class Background:
     def draw(self, window: pygame.Surface):
         surface = pygame.Surface(self.size)
         surface.set_colorkey((0, 0, 0))
+
+        myimage = pygame.image.load("assets\\background\\Battleground3.png")
+        image_resized = pygame.transform.rotozoom(myimage, 0, CONFIG["window_width"]/myimage.get_rect()[2])
         pygame.draw.rect(surface, self.color, ((0, 0), self.size))
+        
         center = (
             self.position[0] + self.size[0] / 2,
             self.position[1] + self.size[1] / 2,
         )
         # draw on window surface 
-        window.blit(surface, self.position)
+        window.blit(image_resized, self.position)

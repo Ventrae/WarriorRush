@@ -33,8 +33,8 @@ while running:
             running = False
 
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP:
-                character.start()
+            if event.key == pygame.K_ESCAPE:
+                running = False
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:

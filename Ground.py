@@ -6,11 +6,12 @@ class Ground:
     def __init__(self):
         self.position = (0, CONFIG["window_height"]-100)
         self.size = (CONFIG["window_width"], 200)
-        self.color = (80, 180, 80)
+        self.color = (80, 180, 80, 0)
 
     def draw(self, window: pygame.Surface):
         surface = pygame.Surface(self.size)
         surface.set_colorkey((0, 0, 0))
+        surface.set_alpha(0)
         pygame.draw.rect(surface, self.color, ((0, 0), self.size))
         center = (
             self.position[0] + self.size[0] / 2,
