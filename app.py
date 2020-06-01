@@ -9,7 +9,7 @@ from Ground import Ground
 from Obstacle import Obstacle
 from Background import Background
 
-character = Character(input("Wybierz bohatera:"))
+character = Character(input("Wybierz bohatera [1-6]:"))
 background = Background()
 ground = Ground()
 obstacle = Obstacle()
