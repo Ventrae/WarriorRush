@@ -19,7 +19,9 @@ class Character:
             pygame.image.load("assets\\characters\\{}\\ss_jumping.png".format(self.character_number)),
         0, 0.5)
         self.img = self.img_r
-        self.frame_nr = 0
+        self.frame_nr_r = 0
+        self.frame_nr_j = 0
+        self.deltaTCounter = 0
 
     def update(self, deltaT):
         # Linear calculation
@@ -33,10 +35,17 @@ class Character:
             pos_y + velocity_y * deltaT + 0.5 * acceleration_y * deltaT ** 2,
         )
 
-        self.frame_nr = self.frame_nr + 1
-        if self.frame_nr > 9:
-            self.frame_nr = 0
-        
+        if self.img == self.img_r:
+            self.frame_nr_r = self.frame_nr_r + 1
+            if self.frame_nr_r > 9:
+                self.frame_nr_r = 0
+        else:
+            self.deltaTCounter += deltaT
+            if self.deltaTCounter > 1/15:
+                self.frame_nr_j = self.frame_nr_j + 1
+                if self.frame_nr_j > 9:
+                    self.frame_nr_j = 0
+                self.deltaTCounter = 0
 
     def draw(self, window: pygame.Surface):
 
@@ -46,12 +55,16 @@ class Character:
             self.isInMidair = False
             self.img = self.img_r;
 
-        self.renderFrame(window, self.calculate_frame()[0], self.calculate_frame()[1])
+        if not self.isInMidair:
+            self.renderFrame(window, self.calculate_frame(self.frame_nr_r)[0], self.calculate_frame(self.frame_nr_r)[1])
+        else:
+            self.renderFrame(window, self.calculate_frame(self.frame_nr_j)[0], self.calculate_frame(self.frame_nr_j)[1])
+        
 
     def jump(self):
 
         self.img = self.img_j
-
+        self.frame_nr_j = 0
         self.acceleration = (0, 2000)
         self.velocity = (0, -850)
         self.isInMidair = True
@@ -70,26 +83,26 @@ class Character:
         
         window.blit(self.img, center, source_area)
 
-    def calculate_frame(self):
-        if self.frame_nr == 0:
+    def calculate_frame(self, frame_nr):
+        if frame_nr == 0:
             return (0, 0)
-        elif self.frame_nr == 1:
+        elif frame_nr == 1:
             return (0, 1)
-        elif self.frame_nr == 2:
+        elif frame_nr == 2:
             return (0, 2)
-        elif self.frame_nr == 3:
+        elif frame_nr == 3:
             return (0, 3)
-        elif self.frame_nr == 4:
+        elif frame_nr == 4:
             return (1, 0)
-        elif self.frame_nr == 5:
+        elif frame_nr == 5:
             return (1, 1)
-        elif self.frame_nr == 6:
+        elif frame_nr == 6:
             return (1, 2)
-        elif self.frame_nr == 7:
+        elif frame_nr == 7:
             return (1, 3)
-        elif self.frame_nr == 8:
+        elif frame_nr == 8:
             return (2, 0)
-        elif self.frame_nr == 9:
+        elif frame_nr == 9:
             return (2, 1)
         else:
             return (0, 0)

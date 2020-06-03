@@ -9,7 +9,10 @@ class Obstacle:
         self.size = (450, 100)
         self.velocity = (-100, 0)
         self.color = (100, 100, 100)
-        self.variant = "M"
+        self.img_s = pygame.image.load("assets\\spikes\\spikes-s.png")
+        self.img_m = pygame.image.load("assets\\spikes\\spikes-m.png")
+        self.img_l = pygame.image.load("assets\\spikes\\spikes-l.png")
+        self.img = self.img_m
 
     def update(self):
         # Linear calculation
@@ -22,11 +25,7 @@ class Obstacle:
         )
 
     def draw(self, window: pygame.Surface):
-        surface = pygame.Surface(self.size)
-        surface.set_colorkey((0, 0, 0))
-
-        pygame.draw.rect(surface, self.color, ((0, 0), self.size))
-
+        
         center = (
             self.position[0] + self.size[0] / 2,
             self.position[1] + self.size[1] / 2,
@@ -36,12 +35,13 @@ class Obstacle:
             self.size = (random.randrange(200, 600), 100)
 
             if self.size[0] < 350:
-                self.variant = "S"
+                self.img = self.img_s
             elif self.size[0] < 450:
-                self.variant = "M"
+                self.img = self.img_m
             else:
-                self.variant = "L"
-
-            self.position = (CONFIG["window_width"]+random.randrange(-50, 150), 550)
-        # draw on window surface
-        window.blit(surface, self.position)
+                self.img = self.img_l
+            
+            self.position = (CONFIG["window_width"]+random.randrange(-100, 150), 550)
+	
+        window.blit(self.img, center)
+        # pygame.draw.rect(window, (255, 0, 0), pygame.Rect(self.position, self.size))
